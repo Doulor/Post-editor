@@ -92,38 +92,62 @@
                         <label for="normalTags" class="block text-sm font-medium text-neutral">标签 (用逗号分隔)</label>
                         <input type="text" id="normalTags" name="normalTags"
                             class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-smooth"
-                            placeholder="例如：测试,中文">
+                            placeholder="例如：诗，测试">
                     </div>
                     <div class="space-y-2">
                         <label for="normalCategory" class="block text-sm font-medium text-neutral">分类</label>
                         <input type="text" id="normalCategory" name="normalCategory"
                             class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-smooth"
-                            placeholder="例如：技术">
+                            placeholder="例如：创作">
                     </div>
-                    <div class="flex items-center space-x-2">
-                        <input type="checkbox" id="normalDraft" name="normalDraft"
-                            class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary/50 transition-smooth">
-                        <label for="normalDraft" class="text-sm font-medium text-neutral">设为草稿</label>
-                    </div>
-                    <div class="pt-2">
-                        <div class="flex items-center space-x-2 mb-3">
-                            <input type="checkbox" id="normalUsePassword" name="normalUsePassword"
+
+                    <!-- 所有复选框选项组合在一起 -->
+                    <div class="space-y-4 pt-2">
+                        <!-- 图片选项 -->
+                        <div>
+                            <div class="flex items-center space-x-2 mb-3">
+                                <input type="checkbox" id="normalUseImage" name="normalUseImage"
+                                    class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary/50 transition-smooth">
+                                <label for="normalUseImage" class="text-sm font-medium text-neutral">添加封面图片</label>
+                            </div>
+                            <div id="normalImageSection" class="hidden pl-7 space-y-2 fade-in">
+                                <label for="normalImage" class="block text-sm font-medium text-neutral">图片文件名（含后缀）</label>
+                                <input type="text" id="normalImage" name="normalImage"
+                                    class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-smooth"
+                                    placeholder="例如：online.jpg">
+                            </div>
+                        </div>
+
+                        <!-- 设为草稿 -->
+                        <div class="flex items-center space-x-2">
+                            <input type="checkbox" id="normalDraft" name="normalDraft"
                                 class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary/50 transition-smooth">
-                            <label for="normalUsePassword" class="text-sm font-medium text-neutral">设置密码保护</label>
+                            <label for="normalDraft" class="text-sm font-medium text-neutral">设为草稿</label>
                         </div>
-                        <div id="normalPasswordSection" class="hidden pl-7 space-y-2 fade-in">
-                            <label for="normalPassword" class="block text-sm font-medium text-neutral">密码</label>
-                            <input type="text" id="normalPassword" name="normalPassword" value="666999"
-                                class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-smooth">
+
+                        <!-- 密码保护 -->
+                        <div>
+                            <div class="flex items-center space-x-2 mb-3">
+                                <input type="checkbox" id="normalUsePassword" name="normalUsePassword"
+                                    class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary/50 transition-smooth">
+                                <label for="normalUsePassword" class="text-sm font-medium text-neutral">设置密码保护</label>
+                            </div>
+                            <div id="normalPasswordSection" class="hidden pl-7 space-y-2 fade-in">
+                                <label for="normalPassword" class="block text-sm font-medium text-neutral">密码</label>
+                                <input type="text" id="normalPassword" name="normalPassword" value="666999"
+                                    class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-smooth">
+                            </div>
                         </div>
-                    </div>
-                    <div class="pt-2">
+
+                        <!-- 置顶帖子 -->
                         <div class="flex items-center space-x-2">
                             <input type="checkbox" id="normalPinned" name="normalPinned"
                                 class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary/50 transition-smooth">
                             <label for="normalPinned" class="text-sm font-medium text-neutral">置顶帖子</label>
                         </div>
                     </div>
+                    <!-- 复选框组合结束 -->
+
                     <div class="space-y-2 pt-3">
                         <label for="normalContent" class="block text-sm font-medium text-neutral">正文内容</label>
                         <textarea id="normalContent" name="normalContent" rows="6"
@@ -149,12 +173,21 @@
                         <input type="date" id="diaryDate" name="diaryDate" value="2025-09-29"
                             class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-smooth">
                     </div>
-                    <div class="space-y-2">
-                        <label for="diaryImage" class="block text-sm font-medium text-neutral">图片文件名（含后缀，可选）</label>
-                        <input type="text" id="diaryImage" name="diaryImage"
-                            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-smooth"
-                            placeholder="例如：sakura.webp">
+                    <!-- 日记图片开关部分 -->
+                    <div class="pt-2">
+                        <div class="flex items-center space-x-2 mb-3">
+                            <input type="checkbox" id="diaryUseImage" name="diaryUseImage"
+                                class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary/50 transition-smooth">
+                            <label for="diaryUseImage" class="text-sm font-medium text-neutral">添加图片</label>
+                        </div>
+                        <div id="diaryImageSection" class="hidden pl-7 space-y-2 fade-in">
+                            <label for="diaryImage" class="block text-sm font-medium text-neutral">图片文件名（含后缀）</label>
+                            <input type="text" id="diaryImage" name="diaryImage"
+                                class="w-50 px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-smooth"
+                                placeholder="例如：online.jpg">
+                        </div>
                     </div>
+                    <!-- 日记图片开关部分结束 -->
                     <div class="space-y-2 pt-2">
                         <label for="diaryContent" class="block text-sm font-medium text-neutral">日记内容</label>
                         <textarea id="diaryContent" name="diaryContent" rows="8"
@@ -219,6 +252,15 @@ date: 2025-09-29
                 });
             });
 
+            // 帖子图片开关事件监听
+            const normalUseImage = document.getElementById('normalUseImage');
+            const normalImageSection = document.getElementById('normalImageSection');
+            normalUseImage.addEventListener('change', () => {
+                normalUseImage.checked ? normalImageSection.classList.remove('hidden') : normalImageSection.classList.add('hidden');
+                generateNormalMarkdown();
+            });
+
+            // 帖子密码保护事件监听
             const normalUsePassword = document.getElementById('normalUsePassword');
             const normalPasswordSection = document.getElementById('normalPasswordSection');
             normalUsePassword.addEventListener('change', () => {
@@ -226,6 +268,15 @@ date: 2025-09-29
                 generateNormalMarkdown();
             });
 
+            // 日记图片开关事件监听
+            const diaryUseImage = document.getElementById('diaryUseImage');
+            const diaryImageSection = document.getElementById('diaryImageSection');
+            diaryUseImage.addEventListener('change', () => {
+                diaryUseImage.checked ? diaryImageSection.classList.remove('hidden') : diaryImageSection.classList.add('hidden');
+                generateDiaryMarkdown();
+            });
+
+            // 输入变化时自动更新预览
             document.querySelectorAll('#normalForm input, #normalForm textarea').forEach(input => {
                 input.addEventListener('input', generateNormalMarkdown);
             });
@@ -233,6 +284,7 @@ date: 2025-09-29
                 input.addEventListener('input', generateDiaryMarkdown);
             });
 
+            // 表单提交处理
             document.querySelectorAll('#normalForm, #diaryForm').forEach(form => {
                 form.addEventListener('submit', (e) => {
                     e.preventDefault();
@@ -244,6 +296,7 @@ date: 2025-09-29
                 });
             });
 
+            // 复制功能
             document.getElementById('copyButton').addEventListener('click', () => {
                 navigator.clipboard.writeText(document.getElementById('markdownResult').textContent).then(() => {
                     const msg = document.getElementById('copyMessage');
@@ -252,14 +305,14 @@ date: 2025-09-29
                 });
             });
 
-            // 👇 核心修改：直接用中文标题当文件名，只替换系统不允许的特殊字符
+            // 下载功能
             document.getElementById('downloadButton').addEventListener('click', () => {
                 const text = document.getElementById('markdownResult').textContent;
                 let title = activeFormType === 'normal' 
                     ? document.getElementById('normalTitle').value || '普通文档' 
                     : document.getElementById('diaryTitle').value || '日记文档';
                 
-                // 只替换Windows/macOS不允许的文件名特殊字符（避免中文被替换）
+                // 只替换Windows/macOS不允许的文件名特殊字符
                 const invalidChars = /[\\/:*?"<>|]/g;
                 const filename = `${title.replace(invalidChars, '-')}.md`;
                 
@@ -268,7 +321,7 @@ date: 2025-09-29
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = filename; // 直接用处理后的中文文件名
+                a.download = filename;
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
@@ -278,9 +331,12 @@ date: 2025-09-29
             generateNormalMarkdown();
         });
 
+        // 生成帖子Markdown
         function generateNormalMarkdown() {
             const title = document.getElementById('normalTitle').value || '未命名文档';
             const published = document.getElementById('normalPublished').value;
+            const useImage = document.getElementById('normalUseImage').checked;
+            const imageName = document.getElementById('normalImage').value || '';
             const description = document.getElementById('normalDescription').value || '';
             const tags = document.getElementById('normalTags').value.split(',').map(t => t.trim()).filter(t => t);
             const category = document.getElementById('normalCategory').value || '';
@@ -292,6 +348,10 @@ date: 2025-09-29
             let markdown = '---\n';
             markdown += `title: "${title}"\n`;
             markdown += `published: ${published}\n`;
+            // 帖子图片路径格式: image: "/image/posts/xxx"
+            if (useImage && imageName) {
+                markdown += `image: "/image/posts/${imageName}"\n`;
+            }
             if (description) markdown += `description: "${description}"\n`;
             markdown += `tags: ${tags.length ? `["${tags.join('", "')}"]` : '[]'}\n`;
             if (category) markdown += `category: "${category}"\n`;
@@ -306,16 +366,21 @@ date: 2025-09-29
             document.getElementById('markdownResult').textContent = markdown;
         }
 
+        // 生成日记Markdown
         function generateDiaryMarkdown() {
             const title = document.getElementById('diaryTitle').value || '未命名日记';
             const date = document.getElementById('diaryDate').value;
+            const useImage = document.getElementById('diaryUseImage').checked;
             const imageName = document.getElementById('diaryImage').value || '';
             const content = document.getElementById('diaryContent').value || '今天没有记录内容...';
 
             let markdown = '---\n';
             markdown += `title: "${title}"\n`;
             markdown += `date: ${date}\n`;
-            if (imageName) markdown += `image: "/images/diary/${imageName}"\n`;
+            // 日记图片格式: image: ["xxx"]
+            if (useImage && imageName) {
+                markdown += `image: ["${imageName}"]\n`;
+            }
             markdown += '---\n\n';
             markdown += content;
             document.getElementById('markdownResult').textContent = markdown;
