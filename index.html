@@ -52,20 +52,17 @@
 </head>
 <body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen font-sans text-dark">
     <div class="container mx-auto px-4 py-8 max-w-6xl">
-        <!-- 标题区域 -->
         <header class="text-center mb-10">
             <h1 class="text-[clamp(2rem,5vw,3rem)] font-bold text-primary mb-2 tracking-tight">
                 <i class="fa fa-file-text-o mr-3" aria-hidden="true"></i>Firef、文档生成器
             </h1>
-            <p class="text-neutral text-lg max-w-2xl mx-auto">支持帖子文档与日记文档快速生成，满足支持Doulor的博客帖子与日记。</p>
+            <p class="text-neutral text-lg max-w-2xl mx-auto">用于帖子文档与日记文档快速生成，支持于Doulor的博客帖子与日记编辑。</p>
         </header>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <!-- 表单区域（带选项卡） -->
             <div class="bg-white rounded-2xl p-6 card-shadow transform hover:scale-[1.01] transition-smooth">
-                <!-- 选项卡切换 -->
                 <div class="flex border-b border-slate-200 mb-6">
-                    <button id="normalTab" class="tab-btn py-2 px-6 text-left transition-smooth" data-target="normalForm">
+                    <button id="normalTab" class="tab-btn py-2 px-6 text-left transition-smooth tab-active" data-target="normalForm">
                         <i class="fa fa-file-text mr-2" aria-hidden="true"></i>帖子文档
                     </button>
                     <button id="diaryTab" class="tab-btn py-2 px-6 text-left text-neutral transition-smooth" data-target="diaryForm">
@@ -73,70 +70,53 @@
                     </button>
                 </div>
 
-                <!-- 普通文档表单（默认显示） -->
                 <form id="normalForm" class="form-content space-y-5">
-                    <!-- 标题 -->
                     <div class="space-y-2">
-                        <label for="normalTitle" class="block text-sm font-medium text-neutral">标题 (仅支持英文输入) <span class="text-red-500">*</span></label>
+                        <label for="normalTitle" class="block text-sm font-medium text-neutral">标题 <span class="text-red-500">*</span></label>
                         <input type="text" id="normalTitle" name="normalTitle" required
                             class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-smooth"
-                            placeholder="例如：文档示例">
+                            placeholder="例如：我的中文帖子">
                     </div>
-
-                    <!-- 发布日期 -->
                     <div class="space-y-2">
                         <label for="normalPublished" class="block text-sm font-medium text-neutral">发布日期</label>
-                        <input type="date" id="normalPublished" name="normalPublished"
+                        <input type="date" id="normalPublished" name="normalPublished" value="2025-09-29"
                             class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-smooth">
                     </div>
-
-                    <!-- 描述 -->
                     <div class="space-y-2">
                         <label for="normalDescription" class="block text-sm font-medium text-neutral">描述</label>
                         <textarea id="normalDescription" name="normalDescription" rows="2"
                             class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-smooth resize-none"
                             placeholder="添加文档描述信息"></textarea>
                     </div>
-
-                    <!-- 标签 -->
                     <div class="space-y-2">
                         <label for="normalTags" class="block text-sm font-medium text-neutral">标签 (用逗号分隔)</label>
                         <input type="text" id="normalTags" name="normalTags"
                             class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-smooth"
-                            placeholder="例如：测试,教程">
+                            placeholder="例如：测试,中文">
                     </div>
-
-                    <!-- 分类 -->
                     <div class="space-y-2">
                         <label for="normalCategory" class="block text-sm font-medium text-neutral">分类</label>
                         <input type="text" id="normalCategory" name="normalCategory"
                             class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-smooth"
-                            placeholder="例如：Technology">
+                            placeholder="例如：技术">
                     </div>
-
-                    <!-- 草稿选项 -->
                     <div class="flex items-center space-x-2">
                         <input type="checkbox" id="normalDraft" name="normalDraft"
                             class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary/50 transition-smooth">
                         <label for="normalDraft" class="text-sm font-medium text-neutral">设为草稿</label>
                     </div>
-
-                    <!-- 密码保护 -->
                     <div class="pt-2">
                         <div class="flex items-center space-x-2 mb-3">
                             <input type="checkbox" id="normalUsePassword" name="normalUsePassword"
                                 class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary/50 transition-smooth">
                             <label for="normalUsePassword" class="text-sm font-medium text-neutral">设置密码保护</label>
                         </div>
-                        
                         <div id="normalPasswordSection" class="hidden pl-7 space-y-2 fade-in">
                             <label for="normalPassword" class="block text-sm font-medium text-neutral">密码</label>
                             <input type="text" id="normalPassword" name="normalPassword" value="666999"
                                 class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-smooth">
                         </div>
                     </div>
-
-                    <!-- 置顶选项 -->
                     <div class="pt-2">
                         <div class="flex items-center space-x-2">
                             <input type="checkbox" id="normalPinned" name="normalPinned"
@@ -144,16 +124,12 @@
                             <label for="normalPinned" class="text-sm font-medium text-neutral">置顶帖子</label>
                         </div>
                     </div>
-
-                    <!-- 正文内容 -->
                     <div class="space-y-2 pt-3">
                         <label for="normalContent" class="block text-sm font-medium text-neutral">正文内容</label>
                         <textarea id="normalContent" name="normalContent" rows="6"
                             class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-smooth resize-none"
                             placeholder="请输入文档正文内容..."></textarea>
                     </div>
-
-                    <!-- 生成按钮 -->
                     <div class="pt-4">
                         <button type="submit" class="generate-btn w-full bg-primary hover:bg-primary/90 text-white font-medium py-3 px-6 rounded-xl transition-smooth flex items-center justify-center" data-type="normal">
                             <i class="fa fa-magic mr-2" aria-hidden="true"></i>生成帖子文档
@@ -161,40 +137,30 @@
                     </div>
                 </form>
 
-                <!-- 日记文档表单（默认隐藏） -->
                 <form id="diaryForm" class="form-content space-y-5 hidden">
-                    <!-- 日记标题 -->
                     <div class="space-y-2">
-                        <label for="diaryTitle" class="block text-sm font-medium text-neutral">日记标题 (仅支持英文输入) <span class="text-red-500">*</span></label>
+                        <label for="diaryTitle" class="block text-sm font-medium text-neutral">日记标题 <span class="text-red-500">*</span></label>
                         <input type="text" id="diaryTitle" name="diaryTitle" required
                             class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-smooth"
-                            placeholder="例如：周末出游">
+                            placeholder="例如：我的中文日记">
                     </div>
-
-                    <!-- 日记日期 -->
                     <div class="space-y-2">
                         <label for="diaryDate" class="block text-sm font-medium text-neutral">日记日期</label>
-                        <input type="date" id="diaryDate" name="diaryDate"
+                        <input type="date" id="diaryDate" name="diaryDate" value="2025-09-29"
                             class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-smooth">
                     </div>
-
-                    <!-- 图片文件名（含后缀，可选） -->
                     <div class="space-y-2">
                         <label for="diaryImage" class="block text-sm font-medium text-neutral">图片文件名（含后缀，可选）</label>
                         <input type="text" id="diaryImage" name="diaryImage"
                             class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-smooth"
-                            placeholder="例如：sakura.webp（最终路径自动拼接为 /images/diary/[文件名]）">
+                            placeholder="例如：sakura.webp">
                     </div>
-
-                    <!-- 日记正文 -->
                     <div class="space-y-2 pt-2">
                         <label for="diaryContent" class="block text-sm font-medium text-neutral">日记内容</label>
                         <textarea id="diaryContent" name="diaryContent" rows="8"
                             class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-smooth resize-none"
-                            placeholder="今天天气很好，去了公园散步，看到很多花开了..."></textarea>
+                            placeholder="今天天气很好..."></textarea>
                     </div>
-
-                    <!-- 生成日记按钮 -->
                     <div class="pt-2">
                         <button type="submit" class="generate-btn w-full bg-secondary hover:bg-secondary/90 text-white font-medium py-3 px-6 rounded-xl transition-smooth flex items-center justify-center" data-type="diary">
                             <i class="fa fa-book mr-2" aria-hidden="true"></i>生成日记文档
@@ -203,31 +169,26 @@
                 </form>
             </div>
 
-            <!-- 结果预览区域 -->
             <div class="bg-white rounded-2xl p-6 card-shadow">
                 <h2 class="text-xl font-semibold mb-6 flex items-center">
                     <i class="fa fa-eye text-primary mr-2" aria-hidden="true"></i>预览结果
                 </h2>
-                
                 <div class="relative">
                     <div id="resultContainer" class="bg-slate-50 rounded-xl p-5 font-mono text-sm overflow-auto max-h-[600px]">
                         <pre id="markdownResult" class="text-slate-700">---
 title: "请选择选项卡并填写信息"
-date: 2025-09-
+date: 2025-09-29
 ---
 
 请在左侧填写文档信息并点击生成按钮...</pre>
                     </div>
-                    
                     <button id="copyButton" class="absolute top-4 right-4 bg-white/80 hover:bg-white text-primary p-2 rounded-lg shadow-md transition-smooth opacity-70 hover:opacity-100">
                         <i class="fa fa-copy" aria-hidden="true"></i>
                     </button>
                 </div>
-                
                 <div id="copyMessage" class="hidden mt-3 text-sm text-center py-2 px-4 rounded-lg bg-secondary/10 text-secondary">
                     <i class="fa fa-check mr-1" aria-hidden="true"></i>已复制到剪贴板
                 </div>
-                
                 <div class="mt-4">
                     <button id="downloadButton" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-medium py-3 px-6 rounded-xl transition-smooth flex items-center justify-center">
                         <i class="fa fa-download mr-2" aria-hidden="true"></i>下载Markdown文件
@@ -236,216 +197,127 @@ date: 2025-09-
             </div>
         </div>
 
-        <!-- 页脚 -->
         <footer class="mt-12 text-center text-neutral text-sm">
             <p>Firef、文档生成工具 &copy; 2025</p>
         </footer>
     </div>
 
     <script>
-        // 全局变量：当前激活的表单类型（normal/diary）
         let activeFormType = 'normal';
-
-        // 页面加载完成后初始化
         document.addEventListener('DOMContentLoaded', () => {
-            // 1. 设置默认日期（普通文档+日记文档）
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('normalPublished').value = today;
-            document.getElementById('diaryDate').value = today;
-
-            // 2. 选项卡切换逻辑
             const tabBtns = document.querySelectorAll('.tab-btn');
             const formContents = document.querySelectorAll('.form-content');
-            
             tabBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
-                    // 切换选项卡样式
                     tabBtns.forEach(b => b.classList.remove('tab-active'));
                     btn.classList.add('tab-active');
-                    
-                    // 切换表单内容
                     const target = btn.getAttribute('data-target');
                     formContents.forEach(form => form.classList.add('hidden'));
                     document.getElementById(target).classList.remove('hidden');
-                    
-                    // 更新当前激活的表单类型
                     activeFormType = target === 'normalForm' ? 'normal' : 'diary';
-                    
-                    // 初始化对应表单的预览
-                    if (activeFormType === 'normal') {
-                        generateNormalMarkdown();
-                    } else {
-                        generateDiaryMarkdown();
-                    }
+                    activeFormType === 'normal' ? generateNormalMarkdown() : generateDiaryMarkdown();
                 });
             });
-            // 初始激活“普通文档”选项卡样式
-            document.getElementById('normalTab').classList.add('tab-active');
 
-            // 3. 普通文档：密码选项切换
             const normalUsePassword = document.getElementById('normalUsePassword');
             const normalPasswordSection = document.getElementById('normalPasswordSection');
-            
             normalUsePassword.addEventListener('change', () => {
-                if (normalUsePassword.checked) {
-                    normalPasswordSection.classList.remove('hidden');
-                } else {
-                    normalPasswordSection.classList.add('hidden');
-                }
+                normalUsePassword.checked ? normalPasswordSection.classList.remove('hidden') : normalPasswordSection.classList.add('hidden');
                 generateNormalMarkdown();
             });
 
-            // 4. 为所有输入框添加实时预览监听
-            // 普通文档输入框
-            const normalInputs = document.querySelectorAll('#normalForm input, #normalForm textarea');
-            normalInputs.forEach(input => {
+            document.querySelectorAll('#normalForm input, #normalForm textarea').forEach(input => {
                 input.addEventListener('input', generateNormalMarkdown);
-                input.addEventListener('change', generateNormalMarkdown);
             });
-
-            // 日记文档输入框
-            const diaryInputs = document.querySelectorAll('#diaryForm input, #diaryForm textarea');
-            diaryInputs.forEach(input => {
+            document.querySelectorAll('#diaryForm input, #diaryForm textarea').forEach(input => {
                 input.addEventListener('input', generateDiaryMarkdown);
-                input.addEventListener('change', generateDiaryMarkdown);
             });
 
-            // 5. 表单提交事件（阻止默认提交，仅触发生成）
-            const allForms = document.querySelectorAll('#normalForm, #diaryForm');
-            allForms.forEach(form => {
+            document.querySelectorAll('#normalForm, #diaryForm').forEach(form => {
                 form.addEventListener('submit', (e) => {
                     e.preventDefault();
                     const type = form.id === 'normalForm' ? 'normal' : 'diary';
-                    
-                    // 生成对应类型的Markdown
-                    if (type === 'normal') {
-                        generateNormalMarkdown();
-                    } else {
-                        generateDiaryMarkdown();
-                    }
-                    
-                    // 生成成功动画
+                    type === 'normal' ? generateNormalMarkdown() : generateDiaryMarkdown();
                     const resultContainer = document.getElementById('resultContainer');
                     resultContainer.classList.add('ring-2', `ring-${type === 'normal' ? 'primary' : 'secondary'}/30`);
-                    setTimeout(() => {
-                        resultContainer.classList.remove('ring-2', `ring-${type === 'normal' ? 'primary' : 'secondary'}/30`);
-                    }, 1000);
+                    setTimeout(() => resultContainer.classList.remove('ring-2', `ring-${type === 'normal' ? 'primary' : 'secondary'}/30`), 1000);
                 });
             });
 
-            // 6. 复制按钮功能
             document.getElementById('copyButton').addEventListener('click', () => {
-                const text = document.getElementById('markdownResult').textContent;
-                navigator.clipboard.writeText(text).then(() => {
-                    const message = document.getElementById('copyMessage');
-                    message.classList.remove('hidden');
-                    message.classList.add('fade-in');
-                    setTimeout(() => {
-                        message.classList.add('hidden');
-                    }, 2000);
+                navigator.clipboard.writeText(document.getElementById('markdownResult').textContent).then(() => {
+                    const msg = document.getElementById('copyMessage');
+                    msg.classList.remove('hidden');
+                    setTimeout(() => msg.classList.add('hidden'), 2000);
                 });
             });
 
-            // 7. 下载按钮功能
+            // 👇 核心修改：直接用中文标题当文件名，只替换系统不允许的特殊字符
             document.getElementById('downloadButton').addEventListener('click', () => {
                 const text = document.getElementById('markdownResult').textContent;
-                let title = '';
+                let title = activeFormType === 'normal' 
+                    ? document.getElementById('normalTitle').value || '普通文档' 
+                    : document.getElementById('diaryTitle').value || '日记文档';
                 
-                // 根据当前激活的表单类型获取标题
-                if (activeFormType === 'normal') {
-                    title = document.getElementById('normalTitle').value || '普通文档';
-                } else {
-                    title = document.getElementById('diaryTitle').value || '日记文档';
-                }
+                // 只替换Windows/macOS不允许的文件名特殊字符（避免中文被替换）
+                const invalidChars = /[\\/:*?"<>|]/g;
+                const filename = `${title.replace(invalidChars, '-')}.md`;
                 
-                // 生成安全的文件名（去除特殊字符）
-                const filename = `${title.replace(/[^a-zA-Z0-9_.-\u4e00-\u9fa5]/g, '-').toLowerCase()}.md`;
-                
-                // 下载文件
-                const blob = new Blob([text], { type: 'text/markdown' });
+                // 带UTF-8编码的Blob
+                const blob = new Blob([text], { type: 'text/markdown; charset=utf-8' });
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = filename;
+                a.download = filename; // 直接用处理后的中文文件名
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
             });
 
-            // 初始化普通文档预览
             generateNormalMarkdown();
         });
 
-        /**
-         * 生成普通文档的Markdown内容
-         */
         function generateNormalMarkdown() {
             const title = document.getElementById('normalTitle').value || '未命名文档';
-            const published = document.getElementById('normalPublished').value || new Date().toISOString().split('T')[0];
+            const published = document.getElementById('normalPublished').value;
             const description = document.getElementById('normalDescription').value || '';
-            const tagsInput = document.getElementById('normalTags').value || '';
+            const tags = document.getElementById('normalTags').value.split(',').map(t => t.trim()).filter(t => t);
             const category = document.getElementById('normalCategory').value || '';
             const draft = document.getElementById('normalDraft').checked;
             const usePassword = document.getElementById('normalUsePassword').checked;
             const password = document.getElementById('normalPassword').value || '666999';
             const content = document.getElementById('normalContent').value || '';
 
-            // 处理标签（带英文双引号）
-            const tags = tagsInput.split(',').map(tag => tag.trim()).filter(tag => tag).length > 0
-                ? `["${tagsInput.split(',').map(tag => tag.trim()).filter(tag => tag).join('", "')}"]`
-                : '[]';
-
-            // 构建元数据
             let markdown = '---\n';
             markdown += `title: "${title}"\n`;
             markdown += `published: ${published}\n`;
             if (description) markdown += `description: "${description}"\n`;
-            markdown += `tags: ${tags}\n`;
+            markdown += `tags: ${tags.length ? `["${tags.join('", "')}"]` : '[]'}\n`;
             if (category) markdown += `category: "${category}"\n`;
-            markdown += `draft: ${draft ? 'true' : 'false'}\n`;
-            // 处理置顶状态
-            const pinned = document.getElementById('normalPinned').checked;
-            if (pinned) {
-                markdown += `pinned: true\n`;
-            }
-            // 处理加密状态
+            markdown += `draft: ${draft}\n`;
+            if (document.getElementById('normalPinned').checked) markdown += `pinned: true\n`;
             if (usePassword) {
                 markdown += `encrypted: true\n`;
                 markdown += `password: "${password}"\n`;
             }
             markdown += '---\n\n';
-
-            // 添加正文
             markdown += content;
-
-            // 更新预览
             document.getElementById('markdownResult').textContent = markdown;
         }
 
-        /**
-         * 生成日记文档的Markdown内容（图片字段可选）
-         */
         function generateDiaryMarkdown() {
             const title = document.getElementById('diaryTitle').value || '未命名日记';
-            const date = document.getElementById('diaryDate').value || new Date().toISOString().split('T')[0];
+            const date = document.getElementById('diaryDate').value;
             const imageName = document.getElementById('diaryImage').value || '';
             const content = document.getElementById('diaryContent').value || '今天没有记录内容...';
 
-            // 构建日记元数据
             let markdown = '---\n';
             markdown += `title: "${title}"\n`;
             markdown += `date: ${date}\n`;
-            // 图片字段：仅当有文件名时添加
-            if (imageName.trim() !== '') {
-                markdown += `image: "/images/diary/${imageName}"\n`;
-            }
+            if (imageName) markdown += `image: "/images/diary/${imageName}"\n`;
             markdown += '---\n\n';
-
-            // 添加日记正文
             markdown += content;
-
-            // 更新预览
             document.getElementById('markdownResult').textContent = markdown;
         }
     </script>
