@@ -136,6 +136,15 @@
                         </div>
                     </div>
 
+                    <!-- 置顶选项 -->
+                    <div class="pt-2">
+                        <div class="flex items-center space-x-2">
+                            <input type="checkbox" id="normalPinned" name="normalPinned"
+                                class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary/50 transition-smooth">
+                            <label for="normalPinned" class="text-sm font-medium text-neutral">置顶帖子</label>
+                        </div>
+                    </div>
+
                     <!-- 正文内容 -->
                     <div class="space-y-2 pt-3">
                         <label for="normalContent" class="block text-sm font-medium text-neutral">正文内容</label>
@@ -389,15 +398,20 @@ date: 2025-09-
 
             // 构建元数据
             let markdown = '---\n';
-            markdown += `title: ${title}\n`;
+            markdown += `title: "${title}"\n`;
             markdown += `published: ${published}\n`;
-            if (description) markdown += `description: ${description}\n`;
+            if (description) markdown += `description: "${description}"\n`;
             markdown += `tags: ${tags}\n`;
             if (category) markdown += `category: "${category}"\n`;
             markdown += `draft: ${draft ? 'true' : 'false'}\n`;
+            // 处理置顶状态
+            const pinned = document.getElementById('normalPinned').checked;
+            if (pinned) {
+                markdown += `pinned: true\n`;
+            }
+            // 处理加密状态
             if (usePassword) {
                 markdown += `encrypted: true\n`;
-                markdown += `pinned: true\n`;
                 markdown += `password: "${password}"\n`;
             }
             markdown += '---\n\n';
