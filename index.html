@@ -359,7 +359,7 @@ date: 2025-09-
                 }
                 
                 // 生成安全的文件名（去除特殊字符）
-                const filename = `${title.replace(/[^a-zA-Z0-9_.-]/g, '-').toLowerCase()}.md`;
+                const filename = `${title.replace(/[^a-zA-Z0-9_.-\u4e00-\u9fa5]/g, '-').toLowerCase()}.md`;
                 
                 // 下载文件
                 const blob = new Blob([text], { type: 'text/markdown' });
