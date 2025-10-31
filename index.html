@@ -79,7 +79,7 @@
                     </div>
                     <div class="space-y-2">
                         <label for="normalPublished" class="block text-sm font-medium text-neutral">发布日期</label>
-                        <input type="date" id="normalPublished" name="normalPublished" value="2025-09-29"
+                        <input type="date" id="normalPublished" name="normalPublished"
                             class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-smooth">
                     </div>
                     <div class="space-y-2">
@@ -170,7 +170,7 @@
                     </div>
                     <div class="space-y-2">
                         <label for="diaryDate" class="block text-sm font-medium text-neutral">日记日期</label>
-                        <input type="date" id="diaryDate" name="diaryDate" value="2025-09-29"
+                        <input type="date" id="diaryDate" name="diaryDate"
                             class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-smooth">
                     </div>
                     <!-- 日记图片开关部分 -->
@@ -180,11 +180,14 @@
                                 class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary/50 transition-smooth">
                             <label for="diaryUseImage" class="text-sm font-medium text-neutral">添加图片</label>
                         </div>
-                        <div id="diaryImageSection" class="hidden pl-7 space-y-2 fade-in">
-                            <label for="diaryImage" class="block text-sm font-medium text-neutral">图片文件名（含后缀）</label>
-                            <input type="text" id="diaryImage" name="diaryImage"
-                                class="w-50 px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-smooth"
-                                placeholder="例如：online.jpg">
+                        <div id="diaryImageSection" class="hidden pl-7 space-y-3 fade-in">
+                            <label class="block text-sm font-medium text-neutral">图片文件名（含后缀）</label>
+                            <div id="diaryImagesContainer" class="space-y-2">
+                                <!-- 图片输入框将动态添加到这里 -->
+                            </div>
+                            <button type="button" id="addImageBtn" class="text-sm text-primary hover:text-primary/80 transition-smooth flex items-center">
+                                <i class="fa fa-plus mr-1" aria-hidden="true"></i> 添加图片
+                            </button>
                         </div>
                     </div>
                     <!-- 日记图片开关部分结束 -->
@@ -237,7 +240,31 @@ date: 2025-09-29
 
     <script>
         let activeFormType = 'normal';
+        
+        // 获取当前日期并格式化为YYYY-MM-DD
+        function getCurrentDate() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+        
         document.addEventListener('DOMContentLoaded', () => {
+            const currentDate = getCurrentDate();
+            
+            // 设置默认日期为当天
+            document.getElementById('normalPublished').value = currentDate;
+            document.getElementById('diaryDate').value = currentDate;
+            
+            // 更新预览中的日期
+            document.getElementById('markdownResult').textContent = `---
+title: "请选择选项卡并填写信息"
+date: ${currentDate}
+---
+
+请在左侧填写文档信息并点击生成按钮...`;
+
             const tabBtns = document.querySelectorAll('.tab-btn');
             const formContents = document.querySelectorAll('.form-content');
             tabBtns.forEach(btn => {
@@ -272,9 +299,20 @@ date: 2025-09-29
             const diaryUseImage = document.getElementById('diaryUseImage');
             const diaryImageSection = document.getElementById('diaryImageSection');
             diaryUseImage.addEventListener('change', () => {
-                diaryUseImage.checked ? diaryImageSection.classList.remove('hidden') : diaryImageSection.classList.add('hidden');
+                if (diaryUseImage.checked) {
+                    diaryImageSection.classList.remove('hidden');
+                    // 确保至少有一个图片输入框
+                    if (document.querySelectorAll('.diary-image-input').length === 0) {
+                        addDiaryImageInput();
+                    }
+                } else {
+                    diaryImageSection.classList.add('hidden');
+                }
                 generateDiaryMarkdown();
             });
+
+            // 添加图片按钮事件监听
+            document.getElementById('addImageBtn').addEventListener('click', addDiaryImageInput);
 
             // 输入变化时自动更新预览
             document.querySelectorAll('#normalForm input, #normalForm textarea').forEach(input => {
@@ -331,10 +369,40 @@ date: 2025-09-29
             generateNormalMarkdown();
         });
 
+        // 添加日记图片输入框
+        function addDiaryImageInput() {
+            const container = document.getElementById('diaryImagesContainer');
+            const imageInputDiv = document.createElement('div');
+            imageInputDiv.className = 'flex items-center space-x-2';
+            
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'flex-1 diary-image-input px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-smooth';
+            input.placeholder = '例如：image.jpg';
+            
+            const deleteBtn = document.createElement('button');
+            deleteBtn.type = 'button';
+            deleteBtn.className = 'text-red-500 hover:text-red-700 transition-smooth p-2';
+            deleteBtn.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
+            deleteBtn.addEventListener('click', function() {
+                container.removeChild(imageInputDiv);
+                generateDiaryMarkdown();
+            });
+            
+            imageInputDiv.appendChild(input);
+            imageInputDiv.appendChild(deleteBtn);
+            container.appendChild(imageInputDiv);
+            
+            // 监听输入变化
+            input.addEventListener('input', generateDiaryMarkdown);
+            
+            generateDiaryMarkdown();
+        }
+
         // 生成帖子Markdown
         function generateNormalMarkdown() {
             const title = document.getElementById('normalTitle').value || '未命名文档';
-            const published = document.getElementById('normalPublished').value;
+            const published = document.getElementById('normalPublished').value || getCurrentDate();
             const useImage = document.getElementById('normalUseImage').checked;
             const imageName = document.getElementById('normalImage').value || '';
             const description = document.getElementById('normalDescription').value || '';
@@ -369,17 +437,22 @@ date: 2025-09-29
         // 生成日记Markdown
         function generateDiaryMarkdown() {
             const title = document.getElementById('diaryTitle').value || '未命名日记';
-            const date = document.getElementById('diaryDate').value;
+            const date = document.getElementById('diaryDate').value || getCurrentDate();
             const useImage = document.getElementById('diaryUseImage').checked;
-            const imageName = document.getElementById('diaryImage').value || '';
             const content = document.getElementById('diaryContent').value || '今天没有记录内容...';
+            
+            // 获取所有图片输入框的值
+            const imageInputs = document.querySelectorAll('.diary-image-input');
+            const images = Array.from(imageInputs)
+                .map(input => input.value.trim())
+                .filter(value => value !== '');
 
             let markdown = '---\n';
             markdown += `title: "${title}"\n`;
             markdown += `date: ${date}\n`;
-            // 日记图片格式: image: ["xxx"]
-            if (useImage && imageName) {
-                markdown += `image: ["${imageName}"]\n`;
+            // 日记图片格式: images: ["aaa","bbb","ccc"]
+            if (useImage && images.length > 0) {
+                markdown += `images: ${JSON.stringify(images)}\n`;
             }
             markdown += '---\n\n';
             markdown += content;
